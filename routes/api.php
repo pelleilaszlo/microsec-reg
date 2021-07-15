@@ -1,9 +1,7 @@
 <?php
 
 use App\Http\Controllers\UserController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,12 +14,5 @@ use Illuminate\Support\Facades\Storage;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    if (rand(0,1))
-    {
-        $users = collect(json_decode(Storage::get('users'), true));
-        return $users->where('email', $request->user()->email)->first();
-    }
-    return $request->user();
-});
+Route::middleware('auth:api')->get('/user', [UserController::class, 'show']);
 Route::middleware('auth:api')->put('/user', [UserController::class, 'update']);

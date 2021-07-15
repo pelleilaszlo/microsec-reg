@@ -56,7 +56,7 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email:rfc,dns', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'nickname' => 'required|string|max:255',
-            'birthdate' => 'required|date|before:'.Carbon::now(),
+            'birthdate' => 'required|date|before:'.Carbon::today()->toDateString(),
         ], [
             'birthdate.before' => __('validation.before', ['attribute' => 'birthdate', 'date' => Carbon::today()->toDateString()]),
         ]);
